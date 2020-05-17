@@ -1,0 +1,26 @@
+int led1 = D7; 
+int sensor = A0;
+int brightness;
+
+
+
+void setup() {
+  pinMode(led1, OUTPUT);
+  pinMode(sensor, INPUT);
+
+}
+
+void loop() {
+    brightness = analogRead(sensor);
+    String bright = String(brightness);
+    
+    if (brightness < 30) {
+        digitalWrite(led1, HIGH);
+        Particle.publish("bright", bright, PRIVATE);
+    } 
+    else{
+        digitalWrite(led1, LOW);
+        Particle.publish("bright", bright, PRIVATE);
+    }
+    delay(30000);
+}
